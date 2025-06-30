@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { FileText, Zap, Target, Users } from 'lucide-react';
+import SignupModal from './components/SignupModal';
+import DemoModal from './components/DemoModal';
 
 function App() {
   return (
@@ -15,6 +17,17 @@ function App() {
 }
 
 function HomePage() {
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+
+  const handleStartTrial = () => {
+    setIsSignupModalOpen(true);
+  };
+
+  const handleWatchDemo = () => {
+    setIsDemoModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -32,7 +45,10 @@ function HomePage() {
             </nav>
             <div className="flex items-center space-x-4">
               <button className="text-gray-600 hover:text-primary-600 transition-colors">Sign In</button>
-              <button className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors">
+              <button 
+                onClick={handleStartTrial}
+                className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+              >
                 Get Started
               </button>
             </div>
@@ -52,10 +68,16 @@ function HomePage() {
             Create compelling proposals faster with intelligent automation and industry expertise.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-            <button className="bg-primary-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-700 transition-all transform hover:scale-105">
+            <button 
+              onClick={handleStartTrial}
+              className="bg-primary-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-700 transition-all transform hover:scale-105"
+            >
               Start Free Trial
             </button>
-            <button className="border-2 border-primary-600 text-primary-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-50 transition-colors">
+            <button 
+              onClick={handleWatchDemo}
+              className="border-2 border-primary-600 text-primary-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-50 transition-colors"
+            >
               Watch Demo
             </button>
           </div>
@@ -117,7 +139,10 @@ function HomePage() {
           <p className="text-xl text-primary-100 mb-8">
             Join thousands of software development teams already using SmartRFP AI
           </p>
-          <button className="bg-white text-primary-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-50 transition-all transform hover:scale-105">
+          <button 
+            onClick={handleStartTrial}
+            className="bg-white text-primary-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-50 transition-all transform hover:scale-105"
+          >
             Start Your Free Trial Today
           </button>
         </div>
@@ -137,6 +162,16 @@ function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* Modals */}
+      <SignupModal 
+        isOpen={isSignupModalOpen} 
+        onClose={() => setIsSignupModalOpen(false)} 
+      />
+      <DemoModal 
+        isOpen={isDemoModalOpen} 
+        onClose={() => setIsDemoModalOpen(false)} 
+      />
     </div>
   );
 }
