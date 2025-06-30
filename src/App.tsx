@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { FileText, Zap, Target, Users } from 'lucide-react';
 import SignupModal from './components/SignupModal';
+import SignInModal from './components/SignInModal';
 import DemoModal from './components/DemoModal';
 
 function App() {
@@ -18,10 +19,15 @@ function App() {
 
 function HomePage() {
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   const handleStartTrial = () => {
     setIsSignupModalOpen(true);
+  };
+
+  const handleSignIn = () => {
+    setIsSignInModalOpen(true);
   };
 
   const handleWatchDemo = () => {
@@ -44,7 +50,12 @@ function HomePage() {
               <a href="#contact" className="text-gray-600 hover:text-primary-600 transition-colors">Contact</a>
             </nav>
             <div className="flex items-center space-x-4">
-              <button className="text-gray-600 hover:text-primary-600 transition-colors">Sign In</button>
+              <button 
+                onClick={handleSignIn}
+                className="text-gray-600 hover:text-primary-600 transition-colors font-medium"
+              >
+                Sign In
+              </button>
               <button 
                 onClick={handleStartTrial}
                 className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
@@ -167,6 +178,10 @@ function HomePage() {
       <SignupModal 
         isOpen={isSignupModalOpen} 
         onClose={() => setIsSignupModalOpen(false)} 
+      />
+      <SignInModal 
+        isOpen={isSignInModalOpen} 
+        onClose={() => setIsSignInModalOpen(false)} 
       />
       <DemoModal 
         isOpen={isDemoModalOpen} 
